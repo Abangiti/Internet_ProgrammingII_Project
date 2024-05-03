@@ -9,15 +9,15 @@ import Concert from './Pages/Concert'
 
 
 
-// import Navbar from './Pages/Navbar'
+import Navbar from './Pages/Navbar'
 import Contactus from './Pages/Contactus'
 import Event from './Pages/Event';
-// import Footer from './Pages/Footer';
+import Footer from './Pages/Footer';
 
 import FAQ from './Pages/FAQ';
 import Funeral from './Pages/Funeral';
-import Graduation from './Pages/Graduation';
-// import Service from './Pages/Service';
+import Graduation from './Pages/Graduation'
+
 import Wedding from './Pages/Wedding';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   return (
   
     <BrowserRouter>
-    {/* <Navigation/> */}
+    <Navbar/>
     
     
       <Routes>
@@ -34,17 +34,19 @@ function App() {
         <Route path='/Aboutus' element= {<Aboutus/>}/>
                  <Route path='/Birthday' element= {<Birthday/>}/>
                 <Route path='/Concert' element= {<Concert/>}/>
-                 <Route path='/Funera' element={<Funeral/>}/>
-                <Route path='/Graduation ' element={<Graduation />}/>
+                 <Route path='/Funeral' element={<Funeral/>}/>
+               
                <Route path='/Wedding' element={<Wedding/>}/>
                 <Route path='/Event' element={<Event/>}/>
                  <Route path='/Contactus' element={<Contactus/>}/>
                <Route path='/Login' element={<Login/>}/>
                <Route path='/FAQ' element={<FAQ/>}/>
                <Route path='/signup' element={<Signup/>}/>
+               <Route path='/grad' element={<Graduation/>}/>
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
     </BrowserRouter>
+    
   )
 }
 
