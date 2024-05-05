@@ -11,22 +11,27 @@ $bearer_token = get_bearer_token();
 $is_jwt_valid = isset($bearer_token) ? is_jwt_valid($bearer_token) : false;
 
 $database = new Database();
+//$database->createDatabase();
+//$database->createTable();
 
 if ($action === 'register') {
+
     $rest_json = file_get_contents('php://input');
     $_POST = json_decode($rest_json, true);
     $user = [
-        'name' => $_POST['name'],
+        'firstname' => $_POST['firstname'],
         'lastname' => $_POST['lastname'],
-        'username' => $_POST['username'],
-        'password' => md5($_POST['password']),
+        'birthdate' => $_POST['birthdate'],
+        'phone' => $_POST['phone'],
+        'username' => $_POST['phone'],
         'email' => $_POST['email'],
+        'password' => md5($_POST['password']),
         'status' => 0,
         'created_date' => date('Y-m-d H:i:s'),
     ];
 
     if ($user_id = $database->register($user)) {
-        $user['id'] = $user_id;
+        $user['id'] = $user_id;  
         if ($code = $database->generateConfirmCode($user_id)) {
             //send generated code by email to user
             $headers = ['alg' => 'HS256', 'typ' => 'JWT'];
@@ -87,7 +92,6 @@ return_json(['status' => 0]);
 function return_json($arr)
 {
  
-
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Headers: *');
     header('Content-Type: application/json; charset=utf-8');
