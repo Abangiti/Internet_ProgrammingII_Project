@@ -21,13 +21,13 @@ LinkedE is an event organization platform that offers a comprehensive solution f
 
 1. **Clone the Repository:** Clone the LinkedE repository to your local machine.
    ```bash
-   git clone https://github.com/your-username/linkedE.git
+   git clone https://github.com/Abangiti/Internet_ProgrammingII_Project.git
    ```
 2. **Install Dependencies:** Navigate to the project directory and install the necessary dependencies for the frontend and backend.
    ```bash
-   cd linkedE
+   cd Internet_ProgrammingII_Project
    npm install       # Install frontend dependencies
-   cd backend
+   cd PHP
    composer install  # Install backend dependencies
    ```
 3. **Configure Backend:** Configure the backend by setting up the database connection and other environment variables as needed.
@@ -35,7 +35,7 @@ LinkedE is an event organization platform that offers a comprehensive solution f
 4. **Start Development Servers:** Start the frontend and backend development servers.
    ```bash
    # Start frontend server
-   npm start
+   npm run dev
 
    # Start backend server
    php -S localhost:8000
