@@ -10,7 +10,7 @@ export default function profile () {
 
   const getUser = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/php-project/api/user', { 
+      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/user', { 
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -36,7 +36,7 @@ export default function profile () {
       <h2>Profile</h2>
       {user && (
         <>
-          <label>Name: {user.name}</label>
+          <label>Name: {user.firstname}</label>
           <label>Last Name: {user.lastname}</label>
           <label>Username: {user.username}</label>
           <label>Email: {user.email}</label>
@@ -45,7 +45,7 @@ export default function profile () {
       <h2>User from token</h2>
       {userToken && (
         <>
-          <label>Name: {userToken.user.name}</label>
+          <label>Name: {userToken.user.firstname}</label>
           <label>Last Name: {userToken.user.lastname}</label>
           <label>Username: {userToken.user.username}</label>
           <label>Email: {userToken.user.email}</label>

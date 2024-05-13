@@ -41,7 +41,7 @@ const Register = () => {
 
   const registerRequest = async () => {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php', {
+      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/register', {
         method: 'POST',
         body: JSON.stringify({
           firstname: firstname,
@@ -59,27 +59,31 @@ const Register = () => {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log('Registration data:', data);
         if (data.status) {
           localStorage.setItem('token', data.status);
+          console.log('Redirecting to confirmation page...');
           navigate('/confirm');
         } else {
           // Handle error here
+         console.log("error: can not redirect to confirmation page...");
         }
       } else {
         // Handle non-200 response here
+        console.log("error non-200 response");
       }
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = ( event) => {
     event.preventDefault();
     registerRequest();
   };
 
   return (
-    <form className="register-form" action="register" onSubmit={submitHandler}>
+    <form className="register-form"   onSubmit={submitHandler}>
       <h2>Register</h2>
       <label>First Name</label>
       <input type="text" value={firstname} onChange={firstnameHandler} />

@@ -1,4 +1,6 @@
 <?php
+     $email='';  
+  
 class Database
 {
     private $server_name = 'localhost';
@@ -42,13 +44,16 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
             $this->database_name,
         );
         $sql = "CREATE TABLE user (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             firstname VARCHAR(30) NOT NULL,
             lastname VARCHAR(30) NOT NULL,
             birthdate DATE,
             phone VARCHAR(50),
+            username VARCHAR(50),
             email VARCHAR(50),
             password VARCHAR(50),
-            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            status INT
             )";
 
     if( $this->connection->query($sql) === TRUE){
@@ -57,7 +62,26 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
         echo "Failed to create Table.";
     }
     }
+///////
+    public function createTable2(){
+        $this->connection = new mysqli(
+            $this->server_name,
+            $this->database_username,
+            $this->database_password,
+            $this->database_name,
+        );
+        $sql = "CREATE TABLE accountconfirm (
+            user_id INT,
+            code INT
+            )";
 
+    if( $this->connection->query($sql) === TRUE){
+       echo "Table created successfully.<br>";
+    }else{
+        echo "Failed to create Table.";
+    }
+    }
+/////////
     public function register($user)
     {
         $this->connection = new mysqli(
@@ -68,10 +92,11 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
         );
         $this->connection->set_charset('utf8');
         $sql = $this->connection->prepare(
-            'INSERT INTO user (`firstname`, `lastname`, `birthdate`,`phone`,`username`, `email`, `password`, `status`, `created_date`) VALUES (?,?,?,?,?,?,?)'
+            'INSERT INTO user (`id`,`firstname`, `lastname`, `birthdate`,`phone`,`username`, `email`, `password`,  `created_date`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?)'
         );
         $sql->bind_param(
-            'sssssssis',
+            'issssssssi',
+            $user['id'],
             $user['firstname'],
             $user['lastname'],
             $user['birthdate'],
@@ -79,14 +104,22 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
             $user['username'],
             $user['email'],
             $user['password'],
-            $user['status'],
-            $user['created_date']
+            $user['created_date'],
+            $user['status']
         );
+       global $email;
+        $email= $user['email'];
         if ($sql->execute()) {
             $id = $this->connection->insert_id;
+       
             $sql->close();
             $this->connection->close();
             return $id;
+            echo "registration successfully done.";
+        }
+        
+        else{
+            echo "failed to register.";
         }
         $sql->close();
         $this->connection->close();
@@ -113,8 +146,12 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
             $this->connection->close();
             return $code;
         }
+      
+
         $sql->close();
         $this->connection->close();
+
+
         return false;
     }
 

@@ -21,7 +21,7 @@ export default function Login() {
 
   async function loginRequest() {
     try {
-      const response = await fetch('http://localhost:8000/php-project/api/login', {
+      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/login', {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -48,7 +48,7 @@ export default function Login() {
   }
 
   return (
-    <form className="login-form" action="http://localhost:8000/api.php" onSubmit={submitHandler}>
+    <form className="login-form"  onSubmit={submitHandler}>
       <h2>Login</h2>
       <label>Username</label>
       <input type="text" value={username} onChange={usernameHandler} />

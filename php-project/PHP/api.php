@@ -2,44 +2,58 @@
 include './classes/database.php';
 include './classes/jwt.php';
 
+header("Access-Control-Allow-Origin: http://localhost:8001");
+header("Access-Control-Allow-Methods: POST");  
+header("Access-Control-Allow-Headers: Content-Type, Authorization");  
+
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);
 
-$action = $uri[3];
-
+$action = $uri[4];
+//echo $action;
 $bearer_token = get_bearer_token();
 $is_jwt_valid = isset($bearer_token) ? is_jwt_valid($bearer_token) : false;
 
 $database = new Database();
 //$database->createDatabase();
 //$database->createTable();
+//$database->createTable2();
 
 if ($action === 'register') {
 
     $rest_json = file_get_contents('php://input');
     $_POST = json_decode($rest_json, true);
     $user = [
-        'firstname' => $_POST['firstname'],
-        'lastname' => $_POST['lastname'],
-        'birthdate' => $_POST['birthdate'],
-        'phone' => $_POST['phone'],
-        'username' => $_POST['phone'],
-        'email' => $_POST['email'],
-        'password' => md5($_POST['password']),
-        'status' => 0,
-        'created_date' => date('Y-m-d H:i:s'),
+        'firstname' => isset($_POST['firstname']) ? $_POST['firstname']  :"" ,
+        'lastname' =>isset($_POST['lastname']) ? $_POST['lastname']   :"" ,
+        'birthdate' => isset($_POST['birthdate']) ? $_POST['birthdate']   : null ,
+        'phone' => isset($_POST['phone']) ? $_POST['phone']  :"" ,
+        'username' => isset($_POST['username']) ? $_POST['username']  :"" ,
+        'email' => isset($_POST['email']) ? $_POST['email']  :"" ,
+        'password' => isset($_POST['password']) ? md5($_POST['password'])  :"" ,
+        'created_date' =>isset($_POST['firstname']) ? date('Y-m-d H:i:s')  :null ,
+        'status' => 0
     ];
 
-    if ($user_id = $database->register($user)) {
+    if ($user_id = $database->register($user) ) {
         $user['id'] = $user_id;  
-        if ($code = $database->generateConfirmCode($user_id)) {
+        
+        if ($code = $database->generateConfirmCode($user_id )) {
+        
             //send generated code by email to user
             $headers = ['alg' => 'HS256', 'typ' => 'JWT'];
             $payload = ['user' => $user];
             $jwt = generate_jwt($headers, $payload);
             return_json(['status' => $jwt]);
+          
+        }else{
+            echo "error no code";
         }
+    }else{
+        echo "no user id";
     }
+
 } elseif ($action === 'confirm') {
     if ($is_jwt_valid) {
         $rest_json = file_get_contents('php://input');
@@ -91,10 +105,7 @@ return_json(['status' => 0]);
 
 function return_json($arr)
 {
- 
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Headers: *');
-    header('Content-Type: application/json; charset=utf-8');
+    header('Content-Type: application/json');
     echo json_encode($arr);
     exit();
 }

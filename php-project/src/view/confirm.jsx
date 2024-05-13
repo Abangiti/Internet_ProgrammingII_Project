@@ -11,7 +11,7 @@ export default function AccountConfirm() {
 
   async function confirmRequest() {
     try {
-      const response = await fetch('http://localhost:8000/php-project/api/confirm', {
+      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/confirm', {
         method: 'POST',
         body: JSON.stringify({
           code: code,
@@ -20,14 +20,15 @@ export default function AccountConfirm() {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
-      });
 
+      });
+  
       if (response.ok) {
         const data = await response.json();
         if (data.status === 1) {
           navigate('/');
         } else {
-          // Handle error
+          console.log("error")
         }
       } else {
         throw new Error('Network response was not ok');
@@ -43,7 +44,7 @@ export default function AccountConfirm() {
   };
 
   return (
-    <form className="register-form" onSubmit={submitHandler}>
+    <form className="register-form"   onSubmit={submitHandler}>
       <h2>Confirm Code</h2>
       <label>Code</label>
       <input type="text" value={code} onChange={codeHandler} />
