@@ -1,0 +1,72 @@
+
+.service_head {
+  /* background-image: url("../assets/Images/funeral/cd.jpg"); */
+  background-color: rgb(13, 13, 69);
+  background-size: cover;
+  height: 500px;
+  width: 1600px;
+  background-attachment: fixed;
+}
+.bold{
+  font-size: 50px;
+  text-align: center;
+}
+
+.service {
+  color: rgb(246, 241, 241);
+  height: 400px;
+  font-size: 100px;
+ }
+.services  {
+  border-radius: 30px;
+  margin-top: 70px;
+}  
+.box-container{
+  margin-top: 200px;
+  display: flex;
+  justify-content:space-evenly;
+}
+
+
+.ratingg {
+  text-align: center;
+}
+.ratingg span {
+  color: #ffd700;
+  padding-right: 5px;
+  font-size: 30px;
+}
+
+.box {
+  margin-top: -150px;
+  margin-left: 100px;
+  max-width: 350px;
+  padding: 12px 20px 10px;
+  border: 2px solid #e0e0e0;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  place-items: center;
+}
+.box h2 {
+  margin-left: 0px;
+}
+.box img{
+  height: 290px;
+  width: 300px;
+  padding-top: 10px;
+}
+.box button{
+  background-color: #4944e5;
+  color: #ccc;
+  margin-left: 90px;
+  margin-top: 30px;
+}
+
+
+
+
+
+
+

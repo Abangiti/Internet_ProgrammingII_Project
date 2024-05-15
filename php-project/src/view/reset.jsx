@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
   const resetRequest = async () => {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/reset', {
+      const response = await fetch('http://localhost:8000/Real-project-git/Internet_ProgrammingII_Project/php-project/PHP/api.php/reset', {
         method: 'POST',
         body: JSON.stringify({
           username: username,

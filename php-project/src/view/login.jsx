@@ -21,7 +21,7 @@ export default function Login() {
 
   async function loginRequest() {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/login', {
+      const response = await fetch('http://localhost:8000/Real-project-git/Internet_ProgrammingII_Project/php-project/PHP/api.php/login', {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -35,7 +35,7 @@ export default function Login() {
         const data = await response.json();
         if (data.status) {
           localStorage.setItem('token', data.status);
-          navigate('/');
+          navigate('/home');
         } else {
           // Set error
         }
@@ -48,15 +48,15 @@ export default function Login() {
   }
 
   return (
-    <form className="login-form"  onSubmit={submitHandler}>
-      <h2>Login</h2>
+    <form className="login-formm"  onSubmit={submitHandler}>
+      <h2  className='font-bold text-2xl '>Login</h2>
       <label>Username</label>
       <input type="text" value={username} onChange={usernameHandler} />
       <label>Password</label>
       <input type="password" value={password} onChange={passwordHandler} />
-      <button>Login</button>
-      <Link to="/register">Register</Link>
-      <Link to="/reset">Reset Password</Link>
+      <button  className='bg-cyan-500 mr-5'>Login</button>
+      <Link to="/register"  className='text-cyan-500 mr-5'>Register</Link>
+      <Link to="/reset" className='text-cyan-500 ml-[200px]'>Reset Password</Link>
     </form>
   );
 }

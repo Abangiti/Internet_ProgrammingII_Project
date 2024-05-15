@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const Register = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState('');
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [birthdate, setBirthdate] = useState('');
@@ -41,7 +43,7 @@ const Register = () => {
 
   const registerRequest = async () => {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/register', {
+      const response = await fetch('http://localhost:8000/Real-project-git/Internet_ProgrammingII_Project/php-project/PHP/api.php/register', {
         method: 'POST',
         body: JSON.stringify({
           firstname: firstname,
@@ -60,17 +62,19 @@ const Register = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Registration data:', data);
+
+          
         if (data.status) {
           localStorage.setItem('token', data.status);
           console.log('Redirecting to confirmation page...');
-          navigate('/confirm');
+        navigate('/confirm');
         } else {
           // Handle error here
-         console.log("error: can not redirect to confirmation page...");
+          console.log("Registration failed:", data.error,data.status);
         }
       } else {
         // Handle non-200 response here
-        console.log("error non-200 response");
+        console.log("Error:", response.status, response.statusText);
       }
     } catch (error) {
       console.log(error.message);
@@ -83,25 +87,25 @@ const Register = () => {
   };
 
   return (
-    <form className="register-form"   onSubmit={submitHandler}>
-      <h2>Register</h2>
+    <form className="register-formm"   onSubmit={submitHandler}>
+      <h2 className='font-bold text-2xl '>Register</h2>
       <label>First Name</label>
-      <input type="text" value={firstname} onChange={firstnameHandler} />
+      <input type="text" value={firstname} onChange={firstnameHandler} required/>
       <label>Last Name</label>
-      <input type="text" value={lastname} onChange={lastnameHandler} />
+      <input type="text" value={lastname} onChange={lastnameHandler} required/>
       <label>Birthdate</label>
-      <input type="date" value={birthdate} onChange={birthdateHandler} />
+      <input type="date" value={birthdate} onChange={birthdateHandler} required/>
       <label>Phone Number</label>
-      <input type="text" value={phone} onChange={phoneHandler} />
+      <input type="text" value={phone} onChange={phoneHandler} required/>
       <label>Username</label>
-      <input type="text" value={username} onChange={usernameHandler} />
+      <input type="text" value={username} onChange={usernameHandler} required/>
       <label>Email</label>
-      <input type="text" value={email} onChange={emailHandler} />
+      <input type="text" value={email} onChange={emailHandler} required/>
       <label>Password</label>
-      <input type="password" value={password} onChange={passwordHandler} />
-
+      <input type="password" value={password} onChange={passwordHandler} required/>
+      {error && <p className="text-red-500">{error}</p>}
      
-      <button>Register</button>
+      <button className='bg-cyan-500 mr-5'>Register</button>
       <Link to="/login">Login</Link>
       
     </form>

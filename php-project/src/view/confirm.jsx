@@ -11,7 +11,7 @@ export default function AccountConfirm() {
 
   async function confirmRequest() {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/confirm', {
+      const response = await fetch('http://localhost:8000/Real-project-git/Internet_ProgrammingII_Project/php-project/PHP/api.php/confirm', {
         method: 'POST',
         body: JSON.stringify({
           code: code,
@@ -20,12 +20,13 @@ export default function AccountConfirm() {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
-
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         if (data.status === 1) {
+          // Show success message
+          window.alert('You are successfully registered!');
           navigate('/');
         } else {
           console.log("error")
@@ -44,11 +45,11 @@ export default function AccountConfirm() {
   };
 
   return (
-    <form className="register-form"   onSubmit={submitHandler}>
+    <form className="register-formm" onSubmit={submitHandler}>
       <h2>Confirm Code</h2>
       <label>Code</label>
       <input type="text" value={code} onChange={codeHandler} />
-      <button type="submit">Confirm</button>
+      <button type="submit" className='bg-cyan-500 mr-5'>Confirm</button>
     </form>
   );
 }

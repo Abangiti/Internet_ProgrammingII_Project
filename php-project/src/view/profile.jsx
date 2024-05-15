@@ -10,7 +10,7 @@ export default function profile () {
 
   const getUser = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8000/php-project/PHP/api.php/user', { 
+      const response = await fetch('http://localhost:8000/Real-project-git/Internet_ProgrammingII_Project/php-project/PHP/api.php/user', { 
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
