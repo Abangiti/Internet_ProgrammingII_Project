@@ -3,9 +3,9 @@
   
 class Database
 {
-    private $server_name = 'localhost';
-    private $database_username = 'root';
-    private $database_password = '11am22bm';
+    private $server_name = '';
+    private $database_username = '';
+    private $database_password = '';
     private $database_name = 'login_system';
     private $connection = null;
 
