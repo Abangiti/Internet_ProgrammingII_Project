@@ -43,7 +43,7 @@ if( $this->connection->query("CREATE DATABASE login_system") === TRUE){
             $this->database_password,
             $this->database_name,
         );
-        $sql = "CREATE TABLE user (
+        $sql = "CREATE TABLE  IF NOT EXISTS user (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             firstname VARCHAR(30) NOT NULL,
             lastname VARCHAR(30) NOT NULL,

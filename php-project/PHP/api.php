@@ -16,9 +16,10 @@ $bearer_token = get_bearer_token();
 $is_jwt_valid = isset($bearer_token) ? is_jwt_valid($bearer_token) : false;
 
 $database = new Database();
-//$database->createDatabase();
-//$database->createTable();
-//$database->createTable2();
+$database->connectToDB();
+// $database->createDatabase();
+// $database->createTable();
+// $database->createTable2();
 
 if ($action === 'register') {
 
